@@ -1,0 +1,16 @@
+1 make db.json
+2 add "post":
+3 copy sample json request
+4 open terminal
+5 json-server --watch db.json
+6 get Resource link : http://localhost:3000/post
+7 run thunder client and copy url
+when thuder client opne past url and urn
+add new: http://localhost:3000/post/11
+Get: request to read 
+Post : add some post
+Patch: update post 
+Put: update completly (when you change only one feacher after upating only this  one feacher is saved )
+Delete : delet
+
+short cut input:text (tab)

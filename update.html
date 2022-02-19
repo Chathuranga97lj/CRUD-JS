@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+</head>
+<body onload="init()"> <!-- run when run-->
+    <button onclick="location.replace('/')">Back</button><br>
+
+    <label for="t">Title</label>
+    <input type="text" name="title" size="100" id="t"><button id="title">Edit</button>
+    <br>
+    <label for="b">Body</label>
+    <input type="text" name="body" size="100" id="b"><button id="body">Edit</button>
+
+    <script>
+        const init = async() => {
+            const _id = localStorage.getItem('id');  // get local(static vairable) data using id
+
+            const url = `http://localhost:3000/posts/${_id}`; // find id 
+            // using fetch
+            const res = await fetch(url)
+            const data = await res.json(); // get data from related id
+
+            const {id, title, body} = data;
+
+            document.getElementById('t').placeholder = title;
+            document.getElementById('b').placeholder = body;
+
+            document.getElementById('title').onclick = async(e) => {
+                const title = document.getElementById('t').value;    
+                const _res = await fetch(url, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({title})
+                })
+
+                if(_res.status = 200){
+                    location.reload();
+                }
+            }
+
+            document.getElementById('body').onclick = async(e) => {
+                const body = document.getElementById('b').value;    
+                const _res = await fetch(url, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({body})
+                })
+
+                if(_res.status = 200){
+                    location.reload();
+                }
+            }
+        }
+    </script>
+    
+</body>
+</html>

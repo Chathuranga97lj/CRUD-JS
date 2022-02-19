@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert</title>
+</head>
+<body>
+    <button onclick="location.replace('/')">Back</button><br>
+    <form id="myform" autocomplete="off">
+        <input type="text" name="title" placeholder="Enter title..." required>
+        <br>
+        <input type="text" name="body" placeholder="Enter body..." required>
+        <br>
+        <input type="submit" value="Save">
+    </form>
+
+    <script>
+        const form = document.getElementById('myform');
+        form.onsubmit = async(e) => {
+            e.preventDefault();  // when form submit page refresh 
+            // console.log(e.target.title); // see html tag so e.target.title.value show what are the values
+            // console.log(e.target.body);
+            const title = e.target.title.value;
+            const body = e.target.body.value;
+            // console.log({title, body})
+            const data = {title, body}
+
+            const res = await fetch('http://localhost:3000/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                body:JSON.stringify(data)
+                
+            })
+
+            if(res.status == 201){ 
+                // alert('Data added Sucessfully'); // when sucessfully post give alert
+                location.href = '/'
+            }
+            else{
+                alert('Something went Wrong!');
+            }
+            
+        }
+    </script>
+
+</body>
+</html>
